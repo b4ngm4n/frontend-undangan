@@ -120,6 +120,7 @@
          <select id="jenisAcara">
             <option value="akad">Akad & Resepsi</option>
             <option value="ngunduh">Ngunduh Mantu</option>
+            <option value="pembeatan">Ngunduh Mantu dan Pembeatan</option>
          </select>
          <button id="generateButton">Buat Undangan</button>
       </div>
@@ -152,6 +153,10 @@
             linkUndangan = `https://salman-rini.manyta.net/unduh-mantu.html?to=${encodedName}`;
             textAcara = 'menyelenggarakan acara Ngunduh Mantu';
             hormatKami = 'Salman & Faujia';
+         } else if (jenisAcara === 'pembeatan') {
+            linkUndangan = `https://salman-rini.manyta.net/unduh-mantu.html?to=${encodedName}`;
+            textAcara = 'menyelenggarakan acara Ngunduh Mantu dan Pembeatan';
+            hormatKami = 'Sriwahyuni Mustapa';
          }
 
          const outputText = `Kepada Yth.\nBapak/Ibu/Saudara/i\n*${namaUndangan}*\nDi Tempat\n-------------------------\n\nAssalamu'alaikum Warahmatullahi wabarakatuh\n\nDengan Mengharap Ridho Allah SWT dan mengikuti Sunnah Rasul SAW. Kami Bermaksud ${textAcara}.\n-------------------------\nUndangan ini merupakan undangan resmi dari kami, Tanpa mengurangi rasa hormat, perkenakan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.\n-------------------------\nBerikut link undangan kami, untuk info lengkap dari acara bisa kunjungi : 👇\n\n${linkUndangan}\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nHormat kami\n${hormatKami}`;

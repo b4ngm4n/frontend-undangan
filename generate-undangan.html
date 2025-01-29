@@ -53,6 +53,16 @@
          box-sizing: border-box;
       }
 
+      .form-container select {
+         padding: 10px;
+         margin-bottom: 10px;
+         border: 1px solid #ddd;
+         border-radius: 4px;
+         width: 80%;
+         box-sizing: border-box;
+      }
+
+
       .form-container button {
          padding: 10px 20px;
          background-color: #5cb85c;
@@ -106,6 +116,11 @@
       <div class="form-container">
          <label for="namaUndangan">Nama yang Diundang:</label>
          <input type="text" id="namaUndangan" placeholder="Contoh: Salman Mustapa, S.Kom Bersama Calon Istri">
+         <label for="jenisAcara">Pilih Jenis Acara:</label>
+         <select id="jenisAcara">
+            <option value="akad">Akad & Resepsi</option>
+            <option value="ngunduh">Ngunduh Mantu</option>
+         </select>
          <button id="generateButton">Buat Undangan</button>
       </div>
       <div class="output-container">
@@ -113,9 +128,12 @@
          <button id="copyButton" style="display: none;">Copy Undangan</button>
       </div>
    </div>
+
+
    <script>
       document.getElementById('generateButton').addEventListener('click', function () {
          const namaUndangan = document.getElementById('namaUndangan').value.trim();
+         const jenisAcara = document.getElementById('jenisAcara').value;
 
          if (!namaUndangan) {
             alert("Silakan masukkan nama yang diundang.");
@@ -123,9 +141,20 @@
          }
 
          const encodedName = encodeURIComponent(namaUndangan);
-         const linkUndangan = `https://salman-rini.manyta.net?to=${encodedName}`;
+         let linkUndangan = '';
+         let textAcara = '';
 
-         const outputText = `Kepada Yth.\nBapak/Ibu/Saudara/i\n${namaUndangan}\nDi Tempat\n-------------------------\n\nAssalamu'alaikum Warahmatullahi wabarakatuh\n\nDengan Mengharap Ridho Allah SWT dan mengikuti Sunnah Rasul SAW. Kami Bermaksud menyelenggarakan acara Akad dan Resepsi Pernikahan.\n-------------------------\nUndangan ini merupakan undangan resmi dari kami, Tanpa mengurangi rasa hormat, perkenakan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.\n-------------------------\nBerikut link undangan kami, untuk info lengkap dari acara bisa kunjungi : 👇\n\n${linkUndangan}\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nHormat kami\nFaujia & Salman`;
+         if (jenisAcara === 'akad') {
+            linkUndangan = `https://salman-rini.manyta.net?to=${encodedName}`;
+            textAcara = 'menyelenggarakan acara Akad dan Resepsi Pernikahan';
+            hormatKami = 'Faujia & Salman';
+         } else if (jenisAcara === 'ngunduh') {
+            linkUndangan = `https://salman-rini.manyta.net/unduh-mantu.html?to=${encodedName}`;
+            textAcara = 'menyelenggarakan acara Ngunduh Mantu';
+            hormatKami = 'Salman & Faujia';
+         }
+
+         const outputText = `Kepada Yth.\nBapak/Ibu/Saudara/i\n${namaUndangan}\nDi Tempat\n-------------------------\n\nAssalamu'alaikum Warahmatullahi wabarakatuh\n\nDengan Mengharap Ridho Allah SWT dan mengikuti Sunnah Rasul SAW. Kami Bermaksud ${textAcara}.\n-------------------------\nUndangan ini merupakan undangan resmi dari kami, Tanpa mengurangi rasa hormat, perkenakan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.\n-------------------------\nBerikut link undangan kami, untuk info lengkap dari acara bisa kunjungi : 👇\n\n${linkUndangan}\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nHormat kami\n${hormatKami}`;
 
          document.getElementById('outputUndangan').textContent = outputText;
          document.getElementById('copyButton').style.display = 'inline-block';

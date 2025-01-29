@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Generator Undangan Pernikahan</title>
+   <style>
+      body {
+         font-family: Arial, sans-serif;
+         margin: 0;
+         padding: 0;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         min-height: 100vh;
+         background-color: #f4f4f4;
+      }
+
+      .container {
+         background-color: white;
+         padding: 30px;
+         border-radius: 8px;
+         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+         text-align: center;
+         width: 90%;
+         max-width: 600px;
+      }
+
+      h1 {
+         margin-bottom: 20px;
+      }
+
+      .form-container {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         margin-bottom: 20px;
+      }
+
+      .form-container label {
+         margin-bottom: 5px;
+         text-align: left;
+         width: 80%;
+      }
+
+      .form-container input {
+         padding: 10px;
+         margin-bottom: 10px;
+         border: 1px solid #ddd;
+         border-radius: 4px;
+         width: 80%;
+         box-sizing: border-box;
+      }
+
+      .form-container button {
+         padding: 10px 20px;
+         background-color: #5cb85c;
+         color: white;
+         border: none;
+         border-radius: 4px;
+         cursor: pointer;
+         transition: background-color 0.3s ease;
+      }
+
+      .form-container button:hover {
+         background-color: #4cae4c;
+      }
+
+      .output-container {
+         margin-top: 20px;
+         text-align: left;
+      }
+
+      #outputUndangan {
+         white-space: pre-wrap;
+         background-color: #f9f9f9;
+         padding: 15px;
+         border: 1px solid #eee;
+         border-radius: 4px;
+         margin-bottom: 10px;
+         font-family: monospace;
+         overflow-x: auto;
+      }
+
+      #copyButton {
+         padding: 10px 20px;
+         background-color: #337ab7;
+         color: white;
+         border: none;
+         border-radius: 4px;
+         cursor: pointer;
+         transition: background-color 0.3s ease;
+         display: none;
+      }
+
+      #copyButton:hover {
+         background-color: #286090;
+      }
+   </style>
+</head>
+
+<body>
+   <div class="container">
+      <h1>Generator Undangan Pernikahan</h1>
+      <div class="form-container">
+         <label for="namaUndangan">Nama yang Diundang:</label>
+         <input type="text" id="namaUndangan" placeholder="Contoh: Salman Mustapa, S.Kom Bersama Calon Istri">
+         <button id="generateButton">Buat Undangan</button>
+      </div>
+      <div class="output-container">
+         <pre id="outputUndangan"></pre>
+         <button id="copyButton" style="display: none;">Copy Undangan</button>
+      </div>
+   </div>
+   <script>
+      document.getElementById('generateButton').addEventListener('click', function () {
+         const namaUndangan = document.getElementById('namaUndangan').value.trim();
+
+         if (!namaUndangan) {
+            alert("Silakan masukkan nama yang diundang.");
+            return;
+         }
+
+         const encodedName = encodeURIComponent(namaUndangan);
+         const linkUndangan = `https://salman-rini.manyta.net?to=${encodedName}`;
+
+         const outputText = `Kepada Yth.\nBapak/Ibu/Saudara/i\n${namaUndangan}\nDi Tempat\n-------------------------\n\nAssalamu'alaikum Warahmatullahi wabarakatuh\n\nDengan Mengharap Ridho Allah SWT dan mengikuti Sunnah Rasul SAW. Kami Bermaksud menyelenggarakan acara Akad dan Resepsi Pernikahan.\n-------------------------\nUndangan ini merupakan undangan resmi dari kami, Tanpa mengurangi rasa hormat, perkenakan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.\n-------------------------\nBerikut link undangan kami, untuk info lengkap dari acara bisa kunjungi : 👇\n\n${linkUndangan}\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nHormat kami\nFaujia & Salman`;
+
+         document.getElementById('outputUndangan').textContent = outputText;
+         document.getElementById('copyButton').style.display = 'inline-block';
+      });
+
+      document.getElementById('copyButton').addEventListener('click', function () {
+         const outputText = document.getElementById('outputUndangan').textContent;
+         navigator.clipboard.writeText(outputText).then(() => {
+            alert('Undangan berhasil di-copy!');
+         }).catch(err => {
+            console.error('Gagal menyalin teks: ', err);
+            alert('Gagal menyalin teks, coba lagi.');
+         });
+      });
+   </script>
+</body>
+
+</html>
